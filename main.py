@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request,url_for,redirect
-from dbservice import get_data
-from dbservice import insert_products
-from dbservice import insert_sales
+from dbservice import get_data,profits_products,sales_perday,sales_today,topprofit_product
+from dbservice import insert_products,total_sales,profits_perday,topselling_product
+from dbservice import insert_sales,sales_product,total_profits,profit_today,last_10
 from datetime import datetime
 # create flask instance
 app=Flask(__name__)
@@ -28,7 +28,39 @@ def sales():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    salep=sales_product()
+    p_name=[]
+    p_sale=[]
+    for i in salep:
+        p_name.append(i[0])
+        p_sale.append(i[1])
+
+    product_name=[]
+    profits_prod=[]
+    prof=profits_products()
+    for i in prof:
+        product_name.append(i[0])
+        profits_prod.append(i[1])
+    prof1=[]
+    day1=[]
+    day_prof=profits_perday()
+    for i in day_prof:
+        prof1.append(str(i[0]))
+        day1.append(i[1])
+    sales1=[]
+    date2=[]
+    day_persales=sales_perday()
+    for i in day_persales:
+        sales1.append(str(i[0]))
+        date2.append(i[1])
+    top_pro=topselling_product()
+    tatal_s=total_sales()
+    total_p=total_profits()
+    today_sales=sales_today()
+    top_profit=topprofit_product()
+    today_profit=profit_today()
+    latest=last_10()
+    return render_template('dashboard.html',p_name=p_name,p_sale=p_sale,tatal_s=tatal_s,product_name=product_name,profits_prod=profits_prod,total_p=total_p,prof1=prof1,day1=day1,sales1=sales1,date2=date2,today_sales=today_sales,top_pro=top_pro,top_profit=top_profit,today_profit=today_profit,latest=latest)
 
 
 

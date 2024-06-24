@@ -75,22 +75,75 @@ def insert_sales(values):
 # insert_sales(x)
 
 def sales_product():
-    query="SELECT products.name, SUM(products.sellingprice * sales.quantity),\
-    FROM products ,\
-    INNER JOIN sales ON products.productid = sales.productid,\
-    GROUP BY products.name;"
+    query="SELECT products.name, SUM(products.sellingprice * sales.quantity) FROM products INNER JOIN sales ON products.productid = sales.productid GROUP BY products.name;"
     cur.execute(query)
     data=cur.fetchall()
+    
     return data 
 # sales_product()
 
+
+def total_sales():
+    query="SELECT sum(products.sellingprice * sales.quantity) FROM public.sales inner join products on products.productid=sales.productid ;"
+    cur.execute(query)
+    data=cur.fetchall()
+    
+    return data
+
+
+def sales_perday():
+    query="SELECT sales.created_at, SUM(products.sellingprice * sales.quantity) AS total_sales FROM sales INNER JOIN products ON products.productid = sales.productid GROUP BY sales.created_at ORDER BY sales.created_at;"
+    cur.execute(query)
+    data=cur.fetchall()
+    return data
+
+
+def sales_today():
+    query="SELECT sales.created_at,sum(products.buyingprice*sales.quantity) FROM sales inner join products on products.productid=sales.productid group by sales.created_at order by sales.created_at desc  limit 1;"
+    cur.execute(query)
+    data=cur.fetchall()
+    return data
+
+
+def profit_today():
+    query="SELECT sales.created_at, sum((products.sellingprice - products.buyingprice)  * sales.quantity) AS profits FROM products inner  JOIN sales  ON products.productid = sales.productid group by sales.created_at order by sales.created_at desc limit 1;"
+    cur.execute(query)
+    data=cur.fetchall()
+    return data
+
+
+
+
+def topselling_product():
+    query="SELECT products.name, SUM(products.sellingprice * sales.quantity)FROM products INNER JOIN sales ON products.productid = sales.productid GROUP BY products.name order by SUM(products.sellingprice * sales.quantity) desc limit 1;"
+    cur.execute(query)
+    data=cur.fetchall()
+    return data
+
+def topprofit_product():
+    query="SELECT products.name,sum((products.sellingprice - products.buyingprice)  * sales.quantity) AS profits FROM products inner  JOIN sales  ON products.productid = sales.productid group by Products.name order by sum((products.sellingprice - products.buyingprice)  * sales.quantity) desc limit 1;"
+    cur.execute(query)
+    data=cur.fetchall()
+    return data
+
+def total_profits():
+    query="SELECT sum((products.sellingprice - products.buyingprice)  * sales.quantity) AS profits FROM products inner  JOIN sales  ON products.productid = sales.productid;"
+    cur.execute(query)
+    data=cur.fetchall()
+    return data
 # task
 # 1.write a query to display profit per product psql=>function on dbservice
 # 2. write a query to display profit per product psql => function on db
 # 3. write a query to display profit per product psql => function on db
+def last_10():
+    query="SELECT sales.created_at,sum(products.buyingprice*sales.quantity) FROM sales inner join products on products.productid=sales.productid group by sales.created_at order by sales.created_at desc  limit 10;"
+    cur.execute(query)
+    data=cur.fetchall()
+    return data
+
 
 def profits_products():
-    query="SELECT products.name,sum(.sellingprice  * sales.quantity) AS sales FROM products inner  JOIN sales  ON products.productid = sales.productid group by Products.Name;"
+    query="SELECT products.name,sum((products.sellingprice - products.buyingprice)  * sales.quantity) AS profits FROM products inner  JOIN sales  ON products.productid = sales.productid group by Products.name ;"
     cur.execute(query)
     data=cur.fetchall()
     return data
