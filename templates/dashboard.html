@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" >
 
 <head>
   <meta charset="utf-8">
@@ -34,13 +34,17 @@
           <li class="nav-item">
             <a class="nav-link" href="/sales" style="color: white;font-weight: bolder;">sales</a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="/register" style="color: white;font-weight: bolder;">register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login" style="color: white;font-weight: bolder;">login</a>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
-  <h1>dashboard</h1>
-
+  <h1>DASHBOARD</h1>
   <div class="row">
     <div class="col col-lg-4 col-sm-4 col-md-4">
   <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
@@ -144,23 +148,21 @@
 </div>
 
 
-<div class="card  text-bg-light mb-3" style="width: 50rem;color: black;">
-  <div class="card-body">
-      <p class="text-uppercase mb-2"><strong>performance</strong></p>
-      <hr />
-      <canvas id="bar-chart" width="800" height="450"></canvas>
-  </div>
-</div>
 
   <div class="container">
-    
+    <canvas id="bar-chart" width="800" height="450"></canvas>
     <canvas id="bar" width="800" height="450"></canvas>
     <canvas id="line-chart" width="800" height="450"></canvas>
     <canvas id="line" width="800" height="450"></canvas>
   </div>
 
   <table class="table table-dark table-striped-columns">
+    
     <thead>
+      <tr ><th style="text-align: center;font-size: larger;">LATEST SALES</th>
+        <th></th>
+      </tr>
+      
       <tr>
         <th>DATE</th>
         <th>TOTAL SALES</th>
@@ -194,7 +196,7 @@
       datasets: [
         {
           label: "TOTAL SALES",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          backgroundColor: ["#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#c45850","#3e95cd", "850","#3e95cd","850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850,#c45850","#3e95cd", "850","#3e95c","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
           data: {{ p_sale | safe }}
         }
       ]
@@ -216,7 +218,7 @@ new Chart(document.getElementById("bar"), {
       datasets: [
         {
           label: "TOTAL PROFITS",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          backgroundColor: ["#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#3e95cd", "850","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
           data: {{ profits_prod | safe }}
         }
       ]

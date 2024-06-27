@@ -99,14 +99,14 @@ def sales_perday():
 
 
 def sales_today():
-    query="SELECT sales.created_at,sum(products.buyingprice*sales.quantity) FROM sales inner join products on products.productid=sales.productid group by sales.created_at order by sales.created_at desc  limit 1;"
+    query="SELECT date(sales.created_at), sum(products.sellingprice * sales.quantity) AS profits FROM products inner  JOIN sales  ON products.productid = sales.productid group by sales.created_at order by sales.created_at desc limit 1;"
     cur.execute(query)
     data=cur.fetchall()
     return data
 
 
 def profit_today():
-    query="SELECT sales.created_at, sum((products.sellingprice - products.buyingprice)  * sales.quantity) AS profits FROM products inner  JOIN sales  ON products.productid = sales.productid group by sales.created_at order by sales.created_at desc limit 1;"
+    query="SELECT date(sales.created_at), sum((products.sellingprice - products.buyingprice)  * sales.quantity) AS profits FROM products inner  JOIN sales  ON products.productid = sales.productid group by sales.created_at order by sales.created_at desc limit 1;"
     cur.execute(query)
     data=cur.fetchall()
     return data
@@ -115,7 +115,7 @@ def profit_today():
 
 
 def topselling_product():
-    query="SELECT products.name, SUM(products.sellingprice * sales.quantity)FROM products INNER JOIN sales ON products.productid = sales.productid GROUP BY products.name order by SUM(products.sellingprice * sales.quantity) desc limit 1;"
+    query="SELECT products.name,sum(sales.quantity) from products inner join sales on products.productid=sales.productid group by products.name order by sum(sales.quantity) desc limit 1;"
     cur.execute(query)
     data=cur.fetchall()
     return data
@@ -155,3 +155,20 @@ def profits_perday():
     data=cur.fetchall()
     return data
 # profits_perday()
+
+def insert_users(values):
+    query="insert into users (full_name, email, password) values (%s, %s,%s);"
+    cur.execute(query,values)
+    conn.commit()
+
+def check_email(email):
+    query="select * from users where email = %s"
+    cur.execute(query,(email,))
+    data=cur.fetchall()
+    return data
+
+def check_eamil_password(email,password):
+    query="select * from users where email = %s and password=%s"
+    cur.execute(query,(email,password,))
+    data=cur.fetchall()
+    return data

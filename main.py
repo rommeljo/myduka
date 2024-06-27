@@ -1,11 +1,11 @@
-from flask import Flask,render_template,request,url_for,redirect
-from dbservice import get_data,profits_products,sales_perday,sales_today,topprofit_product
-from dbservice import insert_products,total_sales,profits_perday,topselling_product
-from dbservice import insert_sales,sales_product,total_profits,profit_today,last_10
+from flask import Flask,render_template,request,url_for,redirect,flash
+from dbservice import get_data,profits_products,sales_perday,sales_today,topprofit_product,check_eamil_password
+from dbservice import insert_products,total_sales,profits_perday,topselling_product,insert_users
+from dbservice import insert_sales,sales_product,total_profits,profit_today,last_10,check_email
 from datetime import datetime
 # create flask instance
 app=Flask(__name__)
-
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 # first route
 @app.route('/')
 def home():
@@ -85,6 +85,43 @@ def add_sales_route():
     sales=(productid,quantity,created_at)
     insert_sales(sales)
     return redirect(url_for('sales'))
+
+@app.route('/login',methods=["POST","GET"])
+def login():
+    if request.method=="POST":
+            email=request.form['email']
+            password=request.form['password']
+            c_mail=check_email(email)
+            if len(c_mail)==1:
+                cc=check_eamil_password(email,password)
+                if len(cc)==1:
+                 flash("login successful",'success')
+                 return redirect(url_for('dashboard'))
+                else:
+                    flash("invalid password",'danger')
+            else:
+                flash("email does not exist please register",'danger')
+                return redirect(url_for("register"))
+    return render_template('login.html')
+
+@app.route('/register',methods=['POST','GET'])
+def register():
+        if request.method == 'POST':
+            full_name = request.form['full_name']
+            email = request.form['email']
+            password = request.form['password']
+            new_user = (full_name, email, password)
+            c_email=check_email(email)
+            if len(c_email)==0:
+                 insert_users(new_user)
+                 flash("registered successfully",'success')
+                 return redirect(url_for('login'))
+            else:
+                flash("email already exists",'danger')    
+       
+           
+        return render_template('register.html')
+
 
 # create 3 html files  and ensure 
 # all html files are bs enabled
