@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg " style="background-color:#04101c;">
+  <nav class="navbar navbar-expand-lg " style="background-color: #04101c;">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"
         style="font-size: xxx-large;font-weight: bolder;color: white;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">MY
@@ -25,6 +25,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/" style="color: white;font-weight: bolder;">Home</a>
           </li>
+          {% if "email" in session %}
           <li class="nav-item">
             <a class="nav-link" href="/dashboard" style="color: white;font-weight: bolder;">dashboard</a>
           </li>
@@ -35,11 +36,20 @@
             <a class="nav-link" href="/sales" style="color: white;font-weight: bolder;">sales</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/logout" style="color: white;font-weight: bolder;">logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+
             <a class="nav-link" href="/register" style="color: white;font-weight: bolder;">register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/login" style="color: white;font-weight: bolder;">login</a>
           </li>
+
+
+
+          {% endif %}
         </ul>
       </div>
     </div>

@@ -1,0 +1,11 @@
+.custom {
+    /* fallback for old browsers */
+    
+    height: 100px;
+    width: 100%;
+    
+    }
+    .inner1{
+        background-color: white;
+    }
+   
