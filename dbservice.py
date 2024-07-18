@@ -168,7 +168,7 @@ def check_email(email):
     return data
 
 def check_eamil_password(email,password):
-    query="select * from users where email = %s and password=%s"
+    query="select * from users where email =%s and password=%s"
     cur.execute(query,(email,password,))
     data=cur.fetchall()
     return data

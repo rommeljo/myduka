@@ -5,7 +5,7 @@ from dbservice import insert_sales,sales_product,total_profits,profit_today,last
 from datetime import datetime
 # create flask instance
 app=Flask(__name__)
-app.secret_key = 'NALI'
+app.secret_key = '******'
 # first route
 @app.route('/')
 def home():
